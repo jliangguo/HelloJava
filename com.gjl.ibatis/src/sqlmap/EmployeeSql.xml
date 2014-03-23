@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="EmployeeSql">
+
+	<typeAlias alias="Employee" type="com.gjl.ibatis.model.Employee"/>
+	
+	<select id="selectEmployeeInfoById" parameterClass="int" resultClass="Employee">
+		select 
+			em.employee_id employeeID, 
+			em.first_name||' '||em.last_name name, 
+			j.job_title jobTitle, 
+			d.department_name departmentName
+		from hr.employees em
+		join hr.jobs j on em.job_id = j.job_id
+		join hr.departments d on em.department_id = d.department_id
+		where em.employee_id = #value#
+	</select> 
+</sqlMap>
